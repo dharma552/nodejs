@@ -2,25 +2,18 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: Default   # 👈 EXACT agent pool name
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'
-  displayName: 'Install Node.js'
+- checkout: self
 
-- script: |
+- bash: |
+    node -v
+    npm -v
     npm install
-  displayName: 'Install Dependencies'
+    node index.js
+  displayName: "Run Node.js app"
 
-- script: |
-    npm run build
-  displayName: 'Build Application'
-
-- script: |
-    npm test
-  displayName: 'Run Tests'
 
 
 
